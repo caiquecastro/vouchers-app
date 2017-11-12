@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label for="expires_at">Expires at</label>
                         <input type="datetime-local"
-                               class="form-control{{ $errors->has('offer_id') ? ' is-invalid' : '' }}"
+                               class="form-control{{ $errors->has('expires_at') ? ' is-invalid' : '' }}"
                                name="expires_at"
                                id="expires_at"
                         >

@@ -14,6 +14,11 @@ class Voucher extends Model
         'used_at',
     ];
 
+    protected $dates = [
+        'expires_at',
+        'used_at',
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -25,6 +30,10 @@ class Voucher extends Model
 
     public function use()
     {
+        if ($this->expires_at->isPast()) {
+            throw new \App\Exceptions\VoucherExpiredException;
+        }
+
         return $this->update([
             'used_at' => \Carbon\Carbon::now(),
         ]);

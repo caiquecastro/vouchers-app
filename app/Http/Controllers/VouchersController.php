@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Voucher;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class VouchersController extends Controller
 {
@@ -49,5 +51,16 @@ class VouchersController extends Controller
         }
 
         return redirect()->route('vouchers.index');
+    }
+
+    public function redeem(Voucher $voucher)
+    {
+        try {
+            $voucher->use();
+        } catch (\App\Exceptions\VoucherExpiredException $e) {
+            return new JsonResponse([], 400);
+        }
+
+        return new JsonResponse($voucher, 204);
     }
 }
