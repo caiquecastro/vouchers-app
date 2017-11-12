@@ -6,6 +6,6 @@ class VouchersController extends Controller
 {
     public function index()
     {
-        //
+        return view('vourchers.index');
     }
 }

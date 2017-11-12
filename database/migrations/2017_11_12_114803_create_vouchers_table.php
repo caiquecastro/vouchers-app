@@ -19,7 +19,7 @@ class CreateVouchersTable extends Migration
             $table->unsignedInteger('recipient_id')->nullable();
             $table->unsignedInteger('offer_id');
             $table->timestamp('expires_at');
-            $table->timestamp('used_at');
+            $table->timestamp('used_at')->nullable();
             $table->timestamps();
 
             $table->foreign('recipient_id')->references('id')->on('recipients');
