@@ -19,7 +19,6 @@ class VouchersStoreTest extends TestCase
 
         $response->assertRedirect('/');
 
-
         $this->assertEquals(10, \App\Voucher::count());
     }
 
@@ -30,7 +29,7 @@ class VouchersStoreTest extends TestCase
             'used_at' => null,
         ]);
 
-        $response = $this->post('/vouchers/' . $voucher->id . '/redeem');
+        $response = $this->post('/api/vouchers/' . $voucher->id . '/redeem');
 
         $response->assertStatus(204);
 
@@ -44,7 +43,7 @@ class VouchersStoreTest extends TestCase
             'used_at' => null,
         ]);
 
-        $response = $this->post('/vouchers/' . $voucher->id . '/redeem');
+        $response = $this->post('/api/vouchers/' . $voucher->id . '/redeem');
 
         $response->assertStatus(400);
 
