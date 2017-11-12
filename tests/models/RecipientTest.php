@@ -6,7 +6,7 @@ use Laravel\Lumen\Testing\DatabaseTransactions;
 class RecipientTest extends TestCase
 {
     use DatabaseTransactions;
-    
+
     public function testRecipientCanBeCreated()
     {
         $recipient = \App\Recipient::create([
