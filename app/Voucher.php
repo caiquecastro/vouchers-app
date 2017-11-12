@@ -2,6 +2,7 @@
 
 namespace App;
 
+use  Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Voucher extends Model
@@ -18,7 +19,7 @@ class Voucher extends Model
         parent::boot();
 
         self::creating(function ($model) {
-            $model->code = Helpers::generateRandomCode();
+            $model->code = $model->code ?: Str::random($length = 8);
         });
     }
 }
