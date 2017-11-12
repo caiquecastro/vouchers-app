@@ -9,7 +9,8 @@ class VouchersIndexTest extends TestCase
 
     public function testItHasADashboardForVouchers()
     {
-        $this->get('/')
-            ->assertResponseOk();
+        $response = $this->get('/');
+        
+        $response->assertStatus(200);
     }
 }

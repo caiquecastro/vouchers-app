@@ -11,7 +11,22 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Voucher::class, function (Faker\Generator $faker) {
+    return [
+        'offer_id' => function () {
+            return factory(App\Offer::class)->create()->id;
+        }
+    ];
+});
+
+$factory->define(App\Offer::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'discount' => $faker->numberBetween(0, 100),
+    ];
+});
+
+$factory->define(App\Recipient::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,

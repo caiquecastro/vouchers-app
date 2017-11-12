@@ -22,4 +22,14 @@ class Voucher extends Model
             $model->code = $model->code ?: Str::random($length = 8);
         });
     }
+
+    public function recipient()
+    {
+        return $this->belongsTo(Recipient::class);
+    }
+
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class);
+    }
 }

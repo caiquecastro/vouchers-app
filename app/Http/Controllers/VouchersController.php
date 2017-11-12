@@ -6,6 +6,8 @@ class VouchersController extends Controller
 {
     public function index()
     {
-        return view('vourchers.index');
+        $vouchers = \App\Voucher::with('offer')->paginate();
+
+        return view('vouchers.index')->withVouchers($vouchers);
     }
 }
