@@ -36,6 +36,7 @@ class VouchersController extends Controller
     {
         $this->validate($request, [
             'offer_id' => 'required|exists:offers,id',
+            'expires_at' => 'required|date',
         ]);
 
         $recipients = \App\Recipient::all();
