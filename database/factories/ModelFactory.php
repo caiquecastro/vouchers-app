@@ -15,7 +15,10 @@ $factory->define(App\Voucher::class, function (Faker\Generator $faker) {
     return [
         'offer_id' => function () {
             return factory(App\Offer::class)->create()->id;
-        }
+        },
+        'recipient_id' => function () {
+            return factory(App\Recipient::class)->create()->id;
+        },
     ];
 });
 

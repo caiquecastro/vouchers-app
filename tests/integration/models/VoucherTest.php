@@ -77,20 +77,6 @@ class VoucherTest extends TestCase
         $this->assertNotEquals($firstVoucher->code, $secondVoucher);
     }
 
-    public function testVoucherCanHaveNullRecipientIfIsNotUsed()
-    {
-        $offer = \App\Offer::create([
-            'name' => 'Greate offer',
-            'discount' => 50,
-        ]);
-        
-        $voucher = \App\Voucher::create([
-            'offer_id' => $offer->id,
-        ]);
-
-        $this->assertNull($voucher->recipient_id);
-    }
-
     public function testVoucherHasAssociationWithRecipientEntity()
     {
         $offer = \App\Offer::create([

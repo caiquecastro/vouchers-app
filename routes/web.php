@@ -11,4 +11,8 @@
 |
 */
 
-$router->get('/', 'VouchersController@index');
+$router->get('/', 'VouchersController@index')->name('vouchers.index');
+
+$router->get('/vouchers/create', 'VouchersController@create');
+
+$router->post('/vouchers', 'VouchersController@store');

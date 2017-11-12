@@ -9,15 +9,15 @@
 
                 <div class="row text-center">
                     <div class="col">
-                        120.000 <br>
+                        {{ $totalVouchers }} <br>
                         <small>Total vouchers</small>
                     </div>
                     <div class="col">
-                        90.193 <br>
+                        {{ $usedVouchers }} <br>
                         <small>Used vouchers</small>
                     </div>
                     <div class="col">
-                        29.807 <br>
+                        {{ $unusedVouchers }}  <br>
                         <small>Unused vouchers</small>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-auto">
-                        <a href="/vouchers/add" class="btn btn-primary">Add Voucher</a>
+                        <a href="/vouchers/create" class="btn btn-primary">Add Voucher</a>
                     </div>
                     <div class="col-auto">
                         <form action="/">
@@ -46,8 +46,10 @@
                         </button>
                     </div>
                 </div>
+                
+                <p class="mt-3">Found {{ $vouchers->total() }} results</p>
 
-                <table class="table table-sm mt-4">
+                <table class="table table-sm mt-3">
                     <thead>
                         <tr>
                             <th></th>

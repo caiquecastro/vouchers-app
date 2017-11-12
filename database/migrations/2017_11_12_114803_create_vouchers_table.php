@@ -16,7 +16,7 @@ class CreateVouchersTable extends Migration
         Schema::create('vouchers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code', 16)->unique();
-            $table->unsignedInteger('recipient_id')->nullable();
+            $table->unsignedInteger('recipient_id');
             $table->unsignedInteger('offer_id');
             $table->timestamp('expires_at');
             $table->timestamp('used_at')->nullable();

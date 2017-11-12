@@ -2,7 +2,7 @@
 
 namespace App;
 
-use  Illuminate\Support\Str;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Voucher extends Model
@@ -21,6 +21,13 @@ class Voucher extends Model
         self::creating(function ($model) {
             $model->code = $model->code ?: Str::random($length = 8);
         });
+    }
+
+    public function use()
+    {
+        return $this->update([
+            'used_at' => \Carbon\Carbon::now(),
+        ]);
     }
 
     public function recipient()
