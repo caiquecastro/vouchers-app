@@ -19,6 +19,7 @@ $factory->define(App\Voucher::class, function (Faker\Generator $faker) {
         'recipient_id' => function () {
             return factory(App\Recipient::class)->create()->id;
         },
+        'expires_at' => $faker->dateTimeBetween('now', '+1 year'),
     ];
 });
 

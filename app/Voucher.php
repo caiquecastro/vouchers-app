@@ -28,10 +28,24 @@ class Voucher extends Model
         });
     }
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'code';
+    }
+
     public function use()
     {
         if ($this->expires_at->isPast()) {
             throw new \App\Exceptions\VoucherExpiredException;
+        }
+
+        if ($this->used_at !== null) {
+            throw new \App\Exceptions\AlreadyUsedVoucherException;
         }
 
         return $this->update([

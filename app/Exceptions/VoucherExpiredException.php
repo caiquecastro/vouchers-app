@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-class VoucherExpiredException extends \Exception
+class VoucherExpiredException extends InvalidVoucherException
 {
     //
 }

@@ -16,5 +16,3 @@ $router->get('/', 'VouchersController@index')->name('vouchers.index');
 $router->get('/vouchers/create', 'VouchersController@create');
 
 $router->post('/vouchers', 'VouchersController@store');
-
-// $router->post('/vouchers/{voucher}/redeem', 'VouchersController@redeem');

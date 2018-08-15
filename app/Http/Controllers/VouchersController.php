@@ -67,7 +67,7 @@ class VouchersController extends Controller
     {
         try {
             $voucher->use();
-        } catch (\App\Exceptions\VoucherExpiredException $e) {
+        } catch (\App\Exceptions\InvalidVoucherException $e) {
             return new JsonResponse([], 400);
         }
 

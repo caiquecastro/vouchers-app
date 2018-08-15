@@ -78,32 +78,4 @@ class VouchersStoreTest extends TestCase
 
         $this->assertEquals(5, \App\Voucher::count());
     }
-
-    public function testVoucherCanBeRedeemed()
-    {
-        $voucher = factory(\App\Voucher::class)->create([
-            'expires_at' => (\Carbon\Carbon::now())->addMonth(),
-            'used_at' => null,
-        ]);
-
-        $response = $this->post('/api/vouchers/' . $voucher->id . '/redeem');
-
-        $response->assertStatus(204);
-
-        $this->assertNotNull($voucher->fresh()->used_at);
-    }
-
-    public function testExpiredVoucherCannotBeRedeemed()
-    {
-        $voucher = factory(\App\Voucher::class)->create([
-            'expires_at' => (\Carbon\Carbon::now())->subSeconds(10),
-            'used_at' => null,
-        ]);
-
-        $response = $this->post('/api/vouchers/' . $voucher->id . '/redeem');
-
-        $response->assertStatus(400);
-
-        $this->assertNull($voucher->fresh()->used_at);
-    }
 }
