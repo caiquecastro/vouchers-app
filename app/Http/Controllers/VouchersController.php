@@ -47,6 +47,7 @@ class VouchersController extends Controller
             \App\Voucher::create([
                 'offer_id' => $request->offer_id,
                 'recipient_id' => $recipient->id,
+                'expires_at' => $request->expires_at,
             ]);
         }
 

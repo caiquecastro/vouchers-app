@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,6 +22,7 @@ class VoucherTest extends TestCase
         $voucher = \App\Voucher::create([
             'recipient_id' => $recipient->id,
             'offer_id' => $offer->id,
+            'expires_at' => Carbon::now(),
         ]);
 
         $this->assertNotNull($voucher->code);
@@ -41,6 +43,7 @@ class VoucherTest extends TestCase
             'recipient_id' => $recipient->id,
             'offer_id' => $offer->id,
             'code' => 'unique-code',
+            'expires_at' => Carbon::now(),
         ]);
 
         $this->expectException(\Illuminate\Database\QueryException::class);
@@ -50,6 +53,7 @@ class VoucherTest extends TestCase
             'recipient_id' => $recipient->id,
             'offer_id' => $offer->id,
             'code' => 'unique-code',
+            'expires_at' => Carbon::now(),
         ]);
     }
 
@@ -67,11 +71,13 @@ class VoucherTest extends TestCase
         $firstVoucher = \App\Voucher::create([
             'recipient_id' => $recipient->id,
             'offer_id' => $offer->id,
+            'expires_at' => Carbon::now(),
         ]);
 
         $secondVoucher = \App\Voucher::create([
             'recipient_id' => $recipient->id,
             'offer_id' => $offer->id,
+            'expires_at' => Carbon::now(),
         ]);
 
         $this->assertNotEquals($firstVoucher->code, $secondVoucher);
@@ -92,6 +98,7 @@ class VoucherTest extends TestCase
         $voucher = \App\Voucher::create([
             'offer_id' => $offer->id,
             'recipient_id' => $recipient->id,
+            'expires_at' => Carbon::now(),
         ]);
 
         $this->assertInstanceOf(\App\Recipient::class, $voucher->recipient);
