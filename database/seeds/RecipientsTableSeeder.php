@@ -1,8 +1,9 @@
 <?php
 
+use App\Recipient;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class RecipientsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call('RecipientsTableSeeder');
+        factory(Recipient::class, 100)->create();
     }
 }
