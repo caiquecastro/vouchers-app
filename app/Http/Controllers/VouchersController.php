@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Offer;
 use App\Voucher;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -37,17 +39,24 @@ class VouchersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'offer_id' => 'required|exists:offers,id',
-            'expires_at' => 'required|date',
+            'offer_name' => 'required',
+            'offer_discount' => 'required',
+            'expires_at' => 'required|date_format:Y-m-d\TH:i',
+        ]);
+
+        $offer = Offer::create([
+            'name' => $request->offer_name,
+            'discount' => $request->offer_discount,
         ]);
 
         $recipients = \App\Recipient::all();
+        $expiresAtAttribute = Carbon::parse($request->expires_at);
 
         foreach ($recipients as $recipient) {
             \App\Voucher::create([
-                'offer_id' => $request->offer_id,
+                'offer_id' => $offer->id,
                 'recipient_id' => $recipient->id,
-                'expires_at' => $request->expires_at,
+                'expires_at' => $expiresAtAttribute,
             ]);
         }
 

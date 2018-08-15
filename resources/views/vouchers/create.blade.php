@@ -8,22 +8,37 @@
             </div>
             <div class="card-body">
                 <form action="/vouchers" method="POST">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">There were errors on your request to create the offer</div>
+                    @endif
+
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="offer">Offer</label>
-                        <select name="offer_id"
-                                id="offer"
-                                class="form-control{{ $errors->has('offer_id') ? ' is-invalid' : '' }}"
+                        <label for="offer_name">Offer Name</label>
+                        <input name="offer_name"
+                               type="text"
+                               id="offer_name"
+                               class="form-control{{ $errors->has('offer_name') ? ' is-invalid' : '' }}"
+                               value="{{ old('offer_name') }}"
                         >
-                            @foreach ($offers as $offer)
-                                <option value="{{ $offer->id }}">
-                                    {{ $offer->name }} ({{ $offer->discount }}% OFF)
-                                </option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('offer_id'))
+                        @if ($errors->has('offer_name'))
                             <div class="invalid-feedback">
-                                {{ $errors->first('offer_id') }}
+                                {{ $errors->first('offer_name') }}
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <label for="offer_discount">Offer Discount</label>
+                        <input name="offer_discount"
+                               type="text"
+                               id="offer_discount"
+                               class="form-control{{ $errors->has('offer_discount') ? ' is-invalid' : '' }}"
+                               value="{{ old('offer_discount') }}"
+                        >
+                        @if ($errors->has('offer_discount'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('offer_discount') }}
                             </div>
                         @endif
                     </div>
@@ -34,6 +49,7 @@
                                class="form-control{{ $errors->has('expires_at') ? ' is-invalid' : '' }}"
                                name="expires_at"
                                id="expires_at"
+                               value="{{ old('expires_at') }}"
                         >
                         @if ($errors->has('expires_at'))
                             <div class="invalid-feedback">
