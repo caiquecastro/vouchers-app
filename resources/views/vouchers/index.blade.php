@@ -36,7 +36,13 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </div>
-                                <input type="text" class="form-control" name="q" placeholder="Search">
+                                <input
+                                    name="q"
+                                    type="search"
+                                    class="form-control"
+                                    placeholder="Search"
+                                    value="{{ request()->query('q') }}"
+                                >
                             </div>
                         </form>
                     </div>
