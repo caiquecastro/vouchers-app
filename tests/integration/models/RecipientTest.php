@@ -2,6 +2,7 @@
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 
 class RecipientTest extends TestCase
 {
@@ -32,5 +33,12 @@ class RecipientTest extends TestCase
             'name' => 'John Doe',
             'email' => 'johndoe@example.com',
         ]);
+    }
+
+    public function testItHasManyVouchers()
+    {
+        $recipient = factory('App\Recipient')->create();
+
+        $this->assertInstanceOf(Collection::class, $recipient->vouchers);
     }
 }

@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 $router->post('/vouchers/{voucher}/redeem', 'VouchersController@redeem');
+$router->get('/recipients/{recipient}/vouchers', 'RecipientVouchersController@index');
