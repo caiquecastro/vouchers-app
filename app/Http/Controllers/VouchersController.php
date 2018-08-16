@@ -81,6 +81,8 @@ class VouchersController extends Controller
             ], 400);
         }
 
-        return new JsonResponse($voucher, 204);
+        return new JsonResponse([
+            'discount' => $voucher->offer->discount,
+        ]);
     }
 }

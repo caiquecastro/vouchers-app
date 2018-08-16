@@ -13,7 +13,12 @@ class VouchersRedeemTest extends TestCase
             'email' => 'johndoe@example.com',
         ]);
 
+        $offer = factory('App\Offer')->create([
+            'discount' => 10,
+        ]);
+
         $voucher = factory(\App\Voucher::class)->create([
+            'offer_id' => $offer->id,
             'expires_at' => (\Carbon\Carbon::now())->addMonth(),
             'used_at' => null,
             'recipient_id' => $recipient->id,
@@ -23,7 +28,10 @@ class VouchersRedeemTest extends TestCase
             'email' => 'johndoe@example.com',
         ]);
 
-        $response->assertStatus(204);
+        $response->assertStatus(200);
+        $response->assertJson([
+            'discount' => '10.00',
+        ]);
 
         $this->assertNotNull($voucher->fresh()->used_at);
     }
