@@ -71,7 +71,7 @@
                             <td></td>
                             <td>{{ $voucher->code }}</td>
                             <td>{{ $voucher->used_at ? 'Yes' : 'No' }}</td>
-                            <td>{{ optional($voucher->recipient)->name }}</td>
+                            <td>{{ optional($voucher->recipient)->email }}</td>
                             <td>{{ $voucher->used_at }}</td>
                         </tr>
                         @endforeach

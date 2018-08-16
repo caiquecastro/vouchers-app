@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "e45e937f-deea-4dec-a261-6b80b6990df5",
+		"name": "Vouchers App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Redeem Voucher",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"johndoe@example.com\"\n}"
+				},
+				"url": {
+					"raw": "localhost/api/vouchers/{{voucherCode}}/redeem",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"vouchers",
+						"{{voucherCode}}",
+						"redeem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recipient Vouchers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "localhost/api/recipients/{{recipientEmail}}/vouchers",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"recipients",
+						"{{recipientEmail}}",
+						"vouchers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
