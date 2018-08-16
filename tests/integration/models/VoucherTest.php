@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Tests\TestCase;
+use App\Exceptions\VoucherExpiredException;
 use App\Exceptions\AlreadyUsedVoucherException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -105,14 +106,30 @@ class VoucherTest extends TestCase
         $this->assertInstanceOf(\App\Recipient::class, $voucher->recipient);
     }
 
+    public function testItThrowsExpiredVoucherExceptionWhenExpiresAtIsPast()
+    {
+        $recipient = factory('App\Recipient')->create();
+        $voucher = factory('App\Voucher')->create([
+            'used_at' => null,
+            'recipient_id' => $recipient->id,
+            'expires_at' => Carbon::now()->subMonth(1),
+        ]);
+
+        $this->expectException(VoucherExpiredException::class);
+
+        $voucher->use($recipient->email);
+    }
+
     public function testItThrowsUsedVoucherExceptionWhenUsingItTwice()
     {
+        $recipient = factory('App\Recipient')->create();
         $voucher = factory('App\Voucher')->create([
             'used_at' => Carbon::now(),
+            'recipient_id' => $recipient->id,
         ]);
 
         $this->expectException(AlreadyUsedVoucherException::class);
 
-        $voucher->use();
+        $voucher->use($recipient->email);
     }
 }

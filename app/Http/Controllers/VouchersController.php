@@ -74,9 +74,11 @@ class VouchersController extends Controller
     public function redeem(Voucher $voucher)
     {
         try {
-            $voucher->use();
+            $voucher->use(request()->input('email'));
         } catch (\App\Exceptions\InvalidVoucherException $e) {
-            return new JsonResponse([], 400);
+            return new JsonResponse([
+                'message' => $e->getMessage(),
+            ], 400);
         }
 
         return new JsonResponse($voucher, 204);

@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use App\Exceptions\InvalidVoucherException;
+use App\Exceptions\VoucherExpiredException;
+use App\Exceptions\AlreadyUsedVoucherException;
 
 class Voucher extends Model
 {
@@ -38,14 +41,18 @@ class Voucher extends Model
         return 'code';
     }
 
-    public function use()
+    public function use($email)
     {
+        if ($this->recipient->email !== $email) {
+            throw new InvalidVoucherException('This voucher belongs to another recipient');
+        }
+
         if ($this->expires_at->isPast()) {
-            throw new \App\Exceptions\VoucherExpiredException;
+            throw new VoucherExpiredException;
         }
 
         if ($this->used_at !== null) {
-            throw new \App\Exceptions\AlreadyUsedVoucherException;
+            throw new AlreadyUsedVoucherException;
         }
 
         return $this->update([
