@@ -6,6 +6,7 @@ use App\Offer;
 use App\Voucher;
 use Carbon\Carbon;
 use App\Recipient;
+use App\Jobs\CreateVouchers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -53,20 +54,7 @@ class VouchersController extends Controller
             'discount' => $request->offer_discount,
         ]);
 
-        $recipients = Recipient::all();
-        $expiresAtAttribute = Carbon::parse($request->expires_at);
-
-        // And then for each recipient.. create a voucher for this offer.
-        // If we have a large number of recipients in our database,
-        // the query will be slow...
-        // @TODO: Queue the job to be done in background
-        foreach ($recipients as $recipient) {
-            Voucher::create([
-                'offer_id' => $offer->id,
-                'recipient_id' => $recipient->id,
-                'expires_at' => $expiresAtAttribute,
-            ]);
-        }
+        CreateVouchers::dispatch($offer, Carbon::parse($request->expires_at));
 
         return redirect()->route('vouchers.index');
     }

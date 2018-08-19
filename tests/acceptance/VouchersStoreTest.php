@@ -1,6 +1,8 @@
 <?php
 
 use Tests\TestCase;
+use App\Jobs\CreateVouchers;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class VouchersStoreTest extends TestCase
@@ -77,5 +79,20 @@ class VouchersStoreTest extends TestCase
         $response->assertRedirect('/');
 
         $this->assertEquals(5, \App\Voucher::count());
+    }
+
+    public function testItDispatchesCreateVouchersJob()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->expectsJobs(App\Jobs\CreateVouchers::class);
+
+        factory(\App\Recipient::class)->create();
+
+        $response = $this->post('/vouchers', [
+            'offer_name' => 'The Special Offer',
+            'offer_discount' => '10',
+            'expires_at' => (\Carbon\Carbon::now())->addMonth()->format('Y-m-d\TH:i'),
+        ]);
     }
 }
